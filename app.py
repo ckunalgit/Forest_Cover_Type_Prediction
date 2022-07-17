@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from parent.logger import logging
 from parent.exception import ForestException
 import sys
@@ -17,7 +17,7 @@ def index():
     except Exception as e:
         forest = ForestException(e,sys)
         logging.info(forest.error_message)
-    return "Starting forest cover project"
+    return render_template('index.html')
     
 
 if __name__ == "__main__":
