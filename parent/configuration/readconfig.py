@@ -20,7 +20,7 @@ class Configuration:
             raise ForestException(e,sys) from e
 
 
-    def get_data_ignestion_config(self)-> DataIngestionConfig:
+    def get_data_ingestion_config(self)-> DataIngestionConfig:
         try:
             # Storing the config info for data ingestion in a variable
             data_ingestion_config_info = self.config_info[DATA_INGESTION_CONFIG_KEY]

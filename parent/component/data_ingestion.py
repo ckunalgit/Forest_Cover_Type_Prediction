@@ -117,6 +117,7 @@ class DataIngestion:
             raise ForestException(e,sys) from e
         pass
 
+# This function will call the above 3 functions
     def initiate_data_ingestion(self)-> DataIngestionArtifact:
         try:
             zip_file_path = self.download_raw_data
