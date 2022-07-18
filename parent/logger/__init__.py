@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 import os
-from parent.constant import create_timestamp_value
+from parent.constants import create_timestamp_value
 
 ########################################################################################################################################
 # Function that will create a log files with timestamp value
