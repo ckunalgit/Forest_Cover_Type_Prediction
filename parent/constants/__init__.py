@@ -28,6 +28,6 @@ DATA_INGESTION_ARTIFACT_DIR = "data_ingestion" # This is a folder created by art
 DATA_INGESTION_DOWNLOAD_URL_KEY = "dataset_download_url"
 DATA_INGESTION_RAW_DATA_DIR_KEY = "raw_data_dir"
 DATA_INGESTION_ZIP_DOWNLOAD_DIR_KEY = "zip_download_dir"
-DATA_INGESTION_INGESTED_DIR_NAME_KEY = "ingested_dir"
+DATA_INGESTION_INGESTED_DIR_NAME_KEY = "ingested_data_dir"
 DATA_INGESTION_TRAIN_DIR_KEY = "ingested_train_dir"
 DATA_INGESTION_TEST_DIR_KEY = "ingested_test_dir"

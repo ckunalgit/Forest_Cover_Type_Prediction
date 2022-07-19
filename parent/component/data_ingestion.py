@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 
 class DataIngestion:
 
-    def __init__(self, data_ingestion_config:DataIngestionConfig):
+    def __init__(self,data_ingestion_config:DataIngestionConfig):
         try:
             logging.info(f"{'>>'*10}Data Ingestion log started.{'<<'*10} ")
             self.data_ingestion_config = data_ingestion_config
@@ -34,8 +34,6 @@ class DataIngestion:
             download_url = self.data_ingestion_config.dataset_download_url
             zip_download_dir = self.data_ingestion_config.zip_download_dir
 
-            if os.path.exists(zip_download_dir):
-                os.remove(zip_download_dir)
             os.makedirs(zip_download_dir,exist_ok=True)
 
             # Getting the filename from the kaggle website
@@ -47,7 +45,7 @@ class DataIngestion:
             zip_file_path = os.path.join(zip_download_dir,forest_file_name)
 
             # This will download the file and accepts 2 arguments
-            urllib.request.urlretrieve(download_url, zip_download_dir)
+            urllib.request.urlretrieve(download_url, zip_file_path)
 
             logging.info("Downloading zip file successful!!")
             return zip_file_path
@@ -61,20 +59,22 @@ class DataIngestion:
             raw_data_dir = self.data_ingestion_config.raw_data_dir
 
             if os.path.exists(raw_data_dir):
-                os.remove()
+                os.remove(raw_data_dir)
+
             os.makedirs(raw_data_dir,exist_ok=True)
 
+            logging.info(f"Extracting zip file: [{zip_file_path}] into dir: [{raw_data_dir}]")
             # The zipfile path is passed to this function when its called in initiate_data_ingestion
             with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
                 zip_ref.extractall(raw_data_dir)
-            logging.info(f"Zip file has been successfully extracted to {raw_data_dir}!!")
+            logging.info(f"Zip file has been successfully extracted!!")
         except Exception as e:
             raise ForestException(e,sys) from e
 
 
     def split_data_as_train_test(self)-> DataIngestionArtifact:
         try:
-            raw_data_dir = self.data_ingestion_config
+            raw_data_dir = self.data_ingestion_config.raw_data_dir
 
             # Getting the raw data file from the raw_data_directory
             file_name = os.listdir(raw_data_dir)[0]
@@ -120,7 +120,7 @@ class DataIngestion:
 # This function will call the above 3 functions
     def initiate_data_ingestion(self)-> DataIngestionArtifact:
         try:
-            zip_file_path = self.download_raw_data
+            zip_file_path = self.download_raw_data()
 
             self.extract_zip_file(zip_file_path=zip_file_path)
 
@@ -129,5 +129,5 @@ class DataIngestion:
             raise ForestException(e,sys) from e
 
 # This is destructor method
-    def __del__():
+    def __del__(self):
         logging.info(f"{'>>'*10}Data Ingestion log completed.{'<<'*10} \n\n")

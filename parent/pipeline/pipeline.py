@@ -1,5 +1,5 @@
-from parent.configuration.readconfig import Configuration
-from parent.logger import logger
+from parent.config.configuration import Configuration
+from parent.logger import logging
 from parent.exception import ForestException
 from parent.entity.config_entity import DataIngestionConfig
 from parent.entity.artifact_entity import DataIngestionArtifact
@@ -10,7 +10,7 @@ class Pipeline:
 
     def __init__(self, config: Configuration = Configuration())-> None: # This init function takes object of Configuration class as input
         try:
-            pass
+            self.config = config
         except Exception as e:
             raise ForestException(e,sys) from e
 
