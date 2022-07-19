@@ -25,4 +25,3 @@ filemode="w",
 format='[%(asctime)s];%(levelname)s;%(lineno)d;%(filename)s;%(funcName)s();%(message)s',
 level=logging.INFO
 )
-
