@@ -17,7 +17,7 @@ class Pipeline:
     
     def start_data_ingestion(self)-> DataIngestionArtifact:
         try:
-            data_ingestion = DataIngestion(data_ingestion_config=self.config.get_data_ingestion_config) # Reads the data ingestion config parameters from Configuration class
+            data_ingestion = DataIngestion(data_ingestion_config=self.config.get_data_ingestion_config()) # Reads the data ingestion config parameters from Configuration class
             
             # Runs the function from component file
             return data_ingestion.initiate_data_ingestion()

@@ -1,12 +1,12 @@
 import logging
 from datetime import datetime
 import os
-from parent.constants import create_timestamp_value
+from parent.constants import get_current_time_stamp
 
 ########################################################################################################################################
 # Function that will create a log files with timestamp value
 def create_log_file_name():
-    return f"log_{create_timestamp_value()}.log"
+    return f"log_{get_current_time_stamp()}.log"
 
 LOG_FILE_NAME = create_log_file_name()
 
