@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 
 class DataIngestion:
 
-    def __init__(self,data_ingestion_config:DataIngestionConfig ):
+    def __init__(self,data_ingestion_config:DataIngestionConfig):
         try:
             logging.info(f"{'>>'*20}Data Ingestion log started.{'<<'*20} ")
             self.data_ingestion_config = data_ingestion_config
@@ -44,9 +44,8 @@ class DataIngestion:
 
             # Getting the filename from the kaggle website
             # Our download url contains many characters after zip, so we need to separate the filename
-            basefile = os.path.basename(download_url)
-            forest_file_name = basefile.split('?')[0]
-
+            forest_file_name = os.path.basename(download_url)
+            
             zip_file_path = os.path.join(zip_download_dir, forest_file_name)
 
             logging.info(f"Downloading file from :[{download_url}] into :[{zip_file_path}]")
@@ -91,25 +90,22 @@ class DataIngestion:
             forest_dataframe = pd.read_csv(forest_file_path)
 
             # We are defining independent and dependent variables from the dataframe
-            x = forest_dataframe.drop(columns = 'Cover_Type')
-            y = forest_dataframe['Cover_Type']
-
-            x_train = None
-            x_test = None
+            #x = forest_dataframe.drop(columns = 'Cover_Type')
+            #y = forest_dataframe['Cover_Type']
 
             # Now doing the train_test_split. We will have 25% data in train dataset and 75% in test dataset
-            x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.75, random_state=42, stratify = y)
+            train, test, = train_test_split(forest_dataframe, test_size=0.75, random_state=42)
 
             train_file_path = os.path.join(self.data_ingestion_config.ingested_train_dir, file_name)
             test_file_path = os.path.join(self.data_ingestion_config.ingested_test_dir, file_name)
 
-            if x_train is not None:
+            if train is not None:
                 os.makedirs(self.data_ingestion_config.ingested_train_dir, exist_ok=True)
-                x_train.to_csv(train_file_path, index=False)
+                train.to_csv(train_file_path, index=False)
 
-            if x_test is not None:
+            if test is not None:
                 os.makedirs(self.data_ingestion_config.ingested_test_dir, exist_ok=True)
-                x_test.to_csv(test_file_path, index=False)
+                test.to_csv(test_file_path, index=False)
 
             data_ingestion_artifact = DataIngestionArtifact(train_file_path=train_file_path,
                                 test_file_path=test_file_path,

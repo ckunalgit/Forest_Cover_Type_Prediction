@@ -8,6 +8,12 @@ DataIngestionConfig = namedtuple("DataIngestionConfig",
     "ingested_train_dir",
     "ingested_test_dir"])
 
+DataValidationConfig = namedtuple("DataValidationConfig",
+    ["schema_file_path",
+    "report_file_path",    
+    "report_page_file_path"])
+
+
 # This namedtuple will have the pipeline name and artifact dir
 TrainingPipelineConfig = namedtuple("TrainingPipelineConfig",
     ["artifact_dir"])
