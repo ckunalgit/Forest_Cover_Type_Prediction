@@ -91,7 +91,7 @@ class DataValidation:
         try:
             dashboard = Dashboard(tabs = [DataDriftTab()])
             train_df,test_df = self.get_train_and_test_df()
-            dashboard.calculate(train_df,test_df)
+            dashboard.calculate(train_df,test_df)           
             dashboard.save(self.data_validation_config.report_page_file_path)
         except Exception as e:
             raise ForestException(e,sys) from e
