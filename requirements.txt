@@ -8,6 +8,7 @@ flask
 PyYAML
 wget
 evidently
+dill
 # This command installs all packages such as "housing" which cannot be mentioned in the requirements.txt
 # find_packages() will do the same thing, so we have mentioned a .remove in the setup.py file
 # to use -e . setup.py is mandatory

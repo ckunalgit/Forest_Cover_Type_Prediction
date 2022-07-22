@@ -1,4 +1,3 @@
-from tkinter import E
 from parent.logger import logging
 from parent.exception import ForestException
 from parent.entity.config_entity import DataValidationConfig
