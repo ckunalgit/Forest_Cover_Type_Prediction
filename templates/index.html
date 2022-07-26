@@ -1,12 +1,115 @@
- <!DOCTYPE html>
-<html>
-<head>
-<title>Forest Cover Type Prediction ML Project</title>
-</head>
-<body>
+{% extends 'header.html' %}
 
-<h1>Forest Cover Type Prediction ML Project</h1>
-<p>This model is helpful in noticing the changes occurred due to heavy floods or any other calamities which affected the forest land.</p>
+{% block head %}
 
-</body>
-</html> 
+
+<title>Index</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12"  style="margin-bottom:20px;">
+        <div class="row">
+            <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                Forest Cover Type prediction using multi model classifiers.
+            </div>
+            <div class="card-body">
+        
+                <h5 class="card-title">About the project.</h5>
+                <p class="card-text">The project is designed to predict the forest cover type (the predominant kind of tree cover) from strictly cartographic variables (as opposed to remotely sensed data). The actual forest cover type for a given 30 x 30 meter cell was determined from US Forest Service (USFS) Region 2 Resource Information System data. Independent variables were then derived from data obtained from the US Geological Survey and USFS. The data is in raw form (not scaled) and contains binary columns of data for qualitative independent variables such as wilderness areas and soil type. This study area includes four wilderness areas located in the Roosevelt National Forest of northern Colorado. These areas represent forests with minimal human-caused disturbances, so that existing forest cover types are more a result of ecological processes rather than forest management practices.</p>
+                <a class="btn btn-success" target="_blank" href="https://youtu.be/SHgyEh45HRo">Drone Footage of Roosevelt NF</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-4">
+            <iframe  style = "width:100%;height:100%" src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" title="Photo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+
+        </div>
+        </div>
+<div class="col-md-4 col-lg-4 col-sm-12">
+<div class="card">
+    <div class="card-header">
+       View Logs
+    </div>
+    <div class="card-body">
+
+        <h5 class="card-title">Log Files</h5>
+        <p class="card-text">All model training log file can be downloaded.</p>
+        <a class="btn btn-primary" href="/logs">Check Logs</a>
+    </div>
+</div>
+</div>
+
+
+<div class="col-md-4 col-lg-4 col-sm-12" style="margin-bottom:20px;">
+    <div class="card">
+        <div class="card-header">
+           View Artifacts
+        </div>
+        <div class="card-body">
+    
+            <h5 class="card-title">Artifact Files</h5>
+            <p class="card-text">All model artifacts file can be downloaded.</p>
+            <a class="btn btn-primary" href="/artifact">Check Artifacts</a>
+        </div>
+    </div>
+    </div>
+
+
+
+    <div class="col-md-4 col-lg-4 col-sm-12"  style="margin-bottom:20px;">
+        <div class="card">
+            <div class="card-header">
+               View Trained Models
+            </div>
+            <div class="card-body">
+        
+                <h5 class="card-title">Trained Models</h5>
+                <p class="card-text">All model file can be downloaded.</p>
+                <a class="btn btn-primary" href="/saved_models">Check Models</a>
+            </div>
+        </div>
+        </div>
+
+        
+    <div class="col-md-4 col-lg-4 col-sm-12"  style="margin-bottom:20px;">
+        <div class="card">
+            <div class="card-header">
+              Estimate a specific Cover Type
+            </div>
+            <div class="card-body">
+        
+                <h5 class="card-title">Access Forest Cover predictor</h5>
+                <p class="card-text">Form will be displayed. Submit the form to get estimated cover type for Forest data.</p>
+                <a class="btn btn-primary" href="/predict">Get Cover Type</a>
+            </div>
+        </div>
+        </div>
+ 
+        <div class="col-md-4 col-lg-4 col-sm-12"  style="margin-bottom:20px;">
+            <div class="card">
+                <div class="card-header">
+                  Train forest cover estimator model.
+                </div>
+                <div class="card-body">
+            
+                    <h5 class="card-title">Initiate model training.</h5>
+                    <p class="card-text">Model training will be done. Files such as log, artifact and models can be viewed and downloaded using appropriate link.</p>
+                    <a class="btn btn-danger" href="/train">Initiate Training</a>
+                </div>
+            </div>
+            </div>
+        
+
+
+
+
+            
+</div>
+
+{% endblock %}

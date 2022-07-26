@@ -1,0 +1,618 @@
+{% extends 'header.html' %}
+
+{% block head %}
+
+
+<title>Forest Cover Type Estimator</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+
+
+        <form action="/predict" method="post">
+            <legend>Forest Cover Prediction Form</legend>
+            <div class="mb-3">
+                <label class="form-label">Elevation</label>
+                <input class="form-control" type="text" name="Elevation" placeholder="Enter a value of Elevation"
+                    required />
+			
+			</div>
+            <div class="mb-3">
+                <label class="form-label">Aspect</label>
+                <input class="form-control" type="text" name="Aspect" placeholder="Enter a value of Aspect"
+                    required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Slope</label>
+                <input class="form-control" type="text" name="Slope" placeholder="Enter a value of Slope"
+					required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Horizontal_Distance_To_Hydrology</label>
+                <input class="form-control" type="text" name="Horizontal_Distance_To_Hydrology" placeholder="Enter a value of Horizontal_Distance_To_Hydrology"
+                    required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Vertical_Distance_To_Hydrology</label>
+                <input class="form-control" type="text" name="Vertical_Distance_To_Hydrology" placeholder="Enter a value of Vertical_Distance_To_Hydrology"
+					required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Horizontal_Distance_To_Roadways</label>
+                <input class="form-control" type="text" name="Horizontal_Distance_To_Roadways" placeholder="Enter a value of Horizontal_Distance_To_Roadways"
+                    required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Hillshade_9am</label>
+                <input class="form-control" type="text" name="Hillshade_9am" placeholder="Enter a value of Hillshade_9am"
+                    required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Hillshade_Noon</label>
+                <input class="form-control" type="text" name="Hillshade_Noon" placeholder="Enter a value of Hillshade_Noon" 
+					required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Hillshade_3pm</label>
+                <input class="form-control" type="text" name="Hillshade_3pm" placeholder="Enter a value of Hillshade_3pm" 
+					required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Horizontal_Distance_To_Fire_Points</label>
+                <input class="form-control" type="text" name="Horizontal_Distance_To_Fire_Points" placeholder="Enter a value of Horizontal_Distance_To_Fire_Points" 
+					required />
+					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Wilderness_Area1</label>
+                <input class="form-control" type="text" name="Wilderness_Area1" placeholder="Enter a value of Wilderness_Area1" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Wilderness_Area2</label>
+                <input class="form-control" type="text" name="Wilderness_Area2" placeholder="Enter a value of Wilderness_Area2" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Wilderness_Area3</label>
+                <input class="form-control" type="text" name="Wilderness_Area3" placeholder="Enter a value of Wilderness_Area3" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Wilderness_Area4</label>
+                <input class="form-control" type="text" name="Wilderness_Area4" placeholder="Enter a value of Wilderness_Area4" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type1</label>
+                <input class="form-control" type="text" name="Soil_Type1" placeholder="Enter a value of Soil_Type1" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type2</label>
+                <input class="form-control" type="text" name="Soil_Type2" placeholder="Enter a value of Soil_Type2" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type3</label>
+                <input class="form-control" type="text" name="Soil_Type1" placeholder="Enter a value of Soil_Type3" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type4</label>
+                <input class="form-control" type="text" name="Soil_Type1" placeholder="Enter a value of Soil_Type4" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type5</label>
+                <input class="form-control" type="text" name="Soil_Type5" placeholder="Enter a value of Soil_Type5" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type6</label>
+                <input class="form-control" type="text" name="Soil_Type6" placeholder="Enter a value of Soil_Type6" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type7</label>
+                <input class="form-control" type="text" name="Soil_Type7" placeholder="Enter a value of Soil_Type7" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type8</label>
+                <input class="form-control" type="text" name="Soil_Type8" placeholder="Enter a value of Soil_Type8" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type9</label>
+                <input class="form-control" type="text" name="Soil_Type9" placeholder="Enter a value of Soil_Type9" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type10</label>
+                <input class="form-control" type="text" name="Soil_Type10" placeholder="Enter a value of Soil_Type10" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type11</label>
+                <input class="form-control" type="text" name="Soil_Type11" placeholder="Enter a value of Soil_Type11" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type12</label>
+                <input class="form-control" type="text" name="Soil_Type12" placeholder="Enter a value of Soil_Type12" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type13</label>
+                <input class="form-control" type="text" name="Soil_Type13" placeholder="Enter a value of Soil_Type13" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type14</label>
+                <input class="form-control" type="text" name="Soil_Type14" placeholder="Enter a value of Soil_Type14" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type15</label>
+                <input class="form-control" type="text" name="Soil_Type15" placeholder="Enter a value of Soil_Type15" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type16</label>
+                <input class="form-control" type="text" name="Soil_Type16" placeholder="Enter a value of Soil_Type16" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type17</label>
+                <input class="form-control" type="text" name="Soil_Type17" placeholder="Enter a value of Soil_Type17" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type18</label>
+                <input class="form-control" type="text" name="Soil_Type18" placeholder="Enter a value of Soil_Type18" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type19</label>
+                <input class="form-control" type="text" name="Soil_Type19" placeholder="Enter a value of Soil_Type19" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type20</label>
+                <input class="form-control" type="text" name="Soil_Type20" placeholder="Enter a value of Soil_Type20" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type21</label>
+                <input class="form-control" type="text" name="Soil_Type21" placeholder="Enter a value of Soil_Type21" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type22</label>
+                <input class="form-control" type="text" name="Soil_Type22" placeholder="Enter a value of Soil_Type22" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type23</label>
+                <input class="form-control" type="text" name="Soil_Type23" placeholder="Enter a value of Soil_Type23" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type24</label>
+                <input class="form-control" type="text" name="Soil_Type24" placeholder="Enter a value of Soil_Type24" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type25</label>
+                <input class="form-control" type="text" name="Soil_Type25" placeholder="Enter a value of Soil_Type25" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type26</label>
+                <input class="form-control" type="text" name="Soil_Type26" placeholder="Enter a value of Soil_Type26" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type27</label>
+                <input class="form-control" type="text" name="Soil_Type27" placeholder="Enter a value of Soil_Type27" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type28</label>
+                <input class="form-control" type="text" name="Soil_Type28" placeholder="Enter a value of Soil_Type28" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type29</label>
+                <input class="form-control" type="text" name="Soil_Type29" placeholder="Enter a value of Soil_Type29" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type30</label>
+                <input class="form-control" type="text" name="Soil_Type30" placeholder="Enter a value of Soil_Type30" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type31</label>
+                <input class="form-control" type="text" name="Soil_Type31" placeholder="Enter a value of Soil_Type31" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type32</label>
+                <input class="form-control" type="text" name="Soil_Type32" placeholder="Enter a value of Soil_Type32" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type33</label>
+                <input class="form-control" type="text" name="Soil_Type33" placeholder="Enter a value of Soil_Type33" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type34</label>
+                <input class="form-control" type="text" name="Soil_Type34" placeholder="Enter a value of Soil_Type34" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type35</label>
+                <input class="form-control" type="text" name="Soil_Type35" placeholder="Enter a value of Soil_Type35" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type36</label>
+                <input class="form-control" type="text" name="Soil_Type36" placeholder="Enter a value of Soil_Type36" 
+					required />						
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>					
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type37</label>
+                <input class="form-control" type="text" name="Soil_Type37" placeholder="Enter a value of Soil_Type37" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type38</label>
+                <input class="form-control" type="text" name="Soil_Type38" placeholder="Enter a value of Soil_Type38" 
+					required />	
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type39</label>
+                <input class="form-control" type="text" name="Soil_Type39" placeholder="Enter a value of Soil_Type39" 
+					required />					
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soil_Type40</label>
+                <select class="form-control" name="Soil_Type40" placeholder="Enter a value of Soil_Type40"
+                    required>
+
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+
+                </select>
+            </div>
+            <div class="mb-3">
+
+                <input class="btn btn-primary" type="submit" value="Predict Median House Value" required />
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              Forest Cover Type
+            </div>
+            <div class="card-body">
+        {% if context['forest_cover_data'] is not none %}
+        <table class="table table-striped">
+            <caption>Forest Cover Type Prediction </caption>
+            <tr>
+                <th>Input Feature</th>
+                <th>Feature Value</th>
+
+            </tr>
+            {% for column,value in context['forest_cover_data'].items() %}
+
+
+
+            <tr>
+                <td>{{column}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+
+                <td>Cover_Type </td>
+                <td>
+                    {{ context['Cover_Type'] }}
+                </td>
+            </tr>
+        </table>
+
+        {% else %}
+       
+              <h5 class="card-title">Submit Form</h5>
+              <p class="card-text">Kindly provide necessary information to estimate forest cover type</p>
+            
+         
+
+        {% endif %}
+        Go to <a href="/" class="btn btn-primary">Home</a>
+    </div>
+</div>
+    </div>
+
+    {% endblock %}

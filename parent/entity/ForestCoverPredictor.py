@@ -128,8 +128,8 @@ class ForestCoverData:
     def get_forest_cover_input_data_frame(self):
 
         try:
-            housing_input_dict = self.get_housing_data_as_dict()
-            return pd.DataFrame(housing_input_dict)
+            forest_cover_input_dict = self.get_forest_cover_data_as_dict()
+            return pd.DataFrame(forest_cover_input_dict)
         except Exception as e:
             raise ForestException(e, sys) from e
 
