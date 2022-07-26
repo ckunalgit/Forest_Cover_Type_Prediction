@@ -80,7 +80,7 @@ class DataValidation:
 
             with open(report_file_path,"w") as report_file:
                 json.dump(report, report_file, indent=6)
-            logging.info(f"Data drift report: {report} has been saved")
+            logging.info(f"Data drift report has been saved")
             return report
         except Exception as e:
             raise ForestException(e,sys) from e
