@@ -5,9 +5,10 @@ import pip
 from parent.utils.utils import read_yaml_file, write_yaml_file
 from matplotlib.style import context
 from parent.logger import logging
-from parent.exception import ForestException, ForestException
+from parent.exception import ForestException
 import os, sys
 import json
+import numpy as np
 from parent.config.configuration import Configuration
 from parent.constants import CONFIG_DIR, get_current_time_stamp
 from parent.pipeline.pipeline import Pipeline
@@ -27,7 +28,7 @@ MODEL_DIR = os.path.join(ROOT_DIR, SAVED_MODELS_DIR_NAME)
 
 from parent.logger import get_log_dataframe
 
-FOREST_COVER_DATA_KEY = "forest_cover_data"
+FOREST_COVER_DATA_KEY = "forestcover_data"
 COVER_TYPE_VALUE_KEY = "Cover_Type"
 
 app = Flask(__name__)
@@ -86,148 +87,151 @@ def view_experiment_history():
 
 @app.route('/train', methods=['GET', 'POST'])
 def train():
-    message = ""
-    pipeline = Pipeline(config=Configuration(current_time_stamp=get_current_time_stamp()))
+    message=""
+    pipeline = Pipeline(config=Configuration(current_timestamp=get_current_time_stamp()))
     if not Pipeline.experiment.running_status:
-        message = "Training started."
+        message= "Training started."
         pipeline.start()
     else:
         message = "Training is already in progress."
-    context = {
-        "experiment": pipeline.get_experiments_status().to_html(classes='table table-striped col-12'),
-        "message": message
-    }
-    return render_template('train.html', context=context)
+    context = { "experiment": pipeline.get_experiments_status().to_html(classes = "table table-striped col-12"),
+                 "message": message
+                }
+        
+    return render_template("train.html", context=context)
 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    context = {
-        FOREST_COVER_DATA_KEY: None,
-        COVER_TYPE_VALUE_KEY: None
-    }
-
-    if request.method == 'POST':
-        Elevation = int(request.form['Elevation'])
-        Aspect = int(request.form['Aspect'])
-        Slope = int(request.form['Slope'])
-        Horizontal_Distance_To_Hydrology = int(request.form['Horizontal_Distance_To_Hydrology'])
-        Vertical_Distance_To_Hydrology = int(request.form['Vertical_Distance_To_Hydrology'])
-        Horizontal_Distance_To_Roadways = int(request.form['Horizontal_Distance_To_Roadways'])
-        Hillshade_9am = int(request.form['Hillshade_9am'])
-        Hillshade_Noon = float(request.form['Hillshade_Noon'])
-        Hillshade_3pm = int(request.form['Hillshade_3pm'])
-
-        Horizontal_Distance_To_Fire_Points = int(request.form['Horizontal_Distance_To_Fire_Points'])
-        Wilderness_Area1 = int(request.form['Wilderness_Area1'])
-        Wilderness_Area2 = int(request.form['Wilderness_Area2'])
-        Wilderness_Area3 = int(request.form['Wilderness_Area3'])
-        Wilderness_Area4 = int(request.form['Wilderness_Area4'])
-        Soil_Type1 = int(request.form['Soil_Type1'])
-        Soil_Type2 = int(request.form['Soil_Type2'])
-        Soil_Type3 = int(request.form['Soil_Type3'])
-        Soil_Type4 = int(request.form['Soil_Type4'])
-        Soil_Type5 = int(request.form['Soil_Type5'])
-        Soil_Type6 = int(request.form['Soil_Type6'])
-        Soil_Type7 = int(request.form['Soil_Type7'])
-        Soil_Type8 = int(request.form['Soil_Type8'])
-        Soil_Type9 = int(request.form['Soil_Type9'])
-        Soil_Type10 = int(request.form['Soil_Type10'])
-        Soil_Type11 = int(request.form['Soil_Type11'])        
-        Soil_Type12 = int(request.form['Soil_Type12'])
-        Soil_Type13 = int(request.form['Soil_Type13'])
-        Soil_Type14 = int(request.form['Soil_Type14'])
-        Soil_Type15 = int(request.form['Soil_Type15'])
-        Soil_Type16 = int(request.form['Soil_Type16'])
-        Soil_Type17 = int(request.form['Soil_Type17'])
-        Soil_Type18 = int(request.form['Soil_Type18'])
-        Soil_Type19 = int(request.form['Soil_Type19'])
-        Soil_Type20 = int(request.form['Soil_Type20'])
-        Soil_Type21 = int(request.form['Soil_Type21'])
-        Soil_Type22 = int(request.form['Soil_Type22'])
-        Soil_Type23 = int(request.form['Soil_Type23'])
-        Soil_Type24 = int(request.form['Soil_Type24'])
-        Soil_Type25 = int(request.form['Soil_Type25'])
-        Soil_Type26 = int(request.form['Soil_Type26'])
-        Soil_Type27 = int(request.form['Soil_Type27'])
-        Soil_Type28 = int(request.form['Soil_Type28'])                                                
-        Soil_Type29 = int(request.form['Soil_Type29'])
-        Soil_Type30 = int(request.form['Soil_Type30'])
-        Soil_Type31 = int(request.form['Soil_Type31'])
-        Soil_Type32 = int(request.form['Soil_Type32'])
-        Soil_Type33 = int(request.form['Soil_Type33'])
-        Soil_Type34 = int(request.form['Soil_Type34'])
-        Soil_Type35 = int(request.form['Soil_Type35'])
-        Soil_Type36 = int(request.form['Soil_Type36'])
-        Soil_Type37 = int(request.form['Soil_Type37'])
-        Soil_Type38 = int(request.form['Soil_Type38'])
-        Soil_Type39 = int(request.form['Soil_Type39'])
-        Soil_Type40 = int(request.form['Soil_Type40'])                                                
-
-        forestcover_data = ForestCoverData(Elevation = Elevation,
-                                    Aspect = Aspect,
-									Slope = Slope,
-									Horizontal_Distance_To_Hydrology = Horizontal_Distance_To_Hydrology,
-									Vertical_Distance_To_Hydrology = Vertical_Distance_To_Hydrology,
-									Horizontal_Distance_To_Roadways = Horizontal_Distance_To_Roadways,
-									Hillshade_9am = Hillshade_9am,
-									Hillshade_Noon = Hillshade_Noon,
-									Hillshade_3pm = Hillshade_3pm,
-									Horizontal_Distance_To_Fire_Points = Horizontal_Distance_To_Fire_Points,
-									Wilderness_Area1 = Wilderness_Area1,
-									Wilderness_Area2 = Wilderness_Area2,
-									Wilderness_Area3 = Wilderness_Area3,
-									Wilderness_Area4 = Wilderness_Area4,
-									Soil_Type1 = Soil_Type1,
-									Soil_Type2 = Soil_Type2,
-									Soil_Type3 = Soil_Type3,
-									Soil_Type4 = Soil_Type4,
-									Soil_Type5 = Soil_Type5,
-									Soil_Type6 = Soil_Type6,
-									Soil_Type7 = Soil_Type7,
-									Soil_Type8 = Soil_Type8,
-									Soil_Type9 = Soil_Type9,
-									Soil_Type10 = Soil_Type10,
-									Soil_Type11 = Soil_Type11,
-									Soil_Type12 = Soil_Type12,
-									Soil_Type13 = Soil_Type13,
-									Soil_Type14 = Soil_Type14,
-									Soil_Type15 = Soil_Type15,
-									Soil_Type16 = Soil_Type16,
-									Soil_Type17 = Soil_Type17,
-									Soil_Type18 = Soil_Type18,
-									Soil_Type19 = Soil_Type19,
-									Soil_Type20 = Soil_Type20,
-									Soil_Type21 = Soil_Type21,
-									Soil_Type22 = Soil_Type22,
-									Soil_Type23 = Soil_Type23,
-									Soil_Type24 = Soil_Type24,
-									Soil_Type25 = Soil_Type25,
-									Soil_Type26 = Soil_Type26,
-									Soil_Type27 = Soil_Type27,
-									Soil_Type28 = Soil_Type28,
-									Soil_Type29 = Soil_Type29,
-									Soil_Type30 = Soil_Type30,
-									Soil_Type31 = Soil_Type31,
-									Soil_Type32 = Soil_Type32,
-									Soil_Type33 = Soil_Type33,
-									Soil_Type34 = Soil_Type34,
-									Soil_Type35 = Soil_Type35,
-									Soil_Type36 = Soil_Type36,
-									Soil_Type37 = Soil_Type37,
-									Soil_Type38 = Soil_Type38,
-									Soil_Type39 = Soil_Type39,
-									Soil_Type40 = Soil_Type40
-                                   )
-        forestcover_df = forestcover_data.get_housing_input_data_frame()
-        forest_cover_predictor = ForestCoverPredictor(model_dir=MODEL_DIR)
-        cover_type = forest_cover_predictor.predict(X=forestcover_df)
+    try:
         context = {
-            FOREST_COVER_DATA_KEY: forestcover_data.get_housing_data_as_dict(),
-            COVER_TYPE_VALUE_KEY: cover_type,
+            FOREST_COVER_DATA_KEY: None,
+            COVER_TYPE_VALUE_KEY: None
         }
-        return render_template('predict.html', context=context)
-    return render_template("predict.html", context=context)
+
+        if request.method == 'POST':
+            Elevation = int(request.form['Elevation'])
+            Aspect = int(request.form['Aspect'])
+            Slope = int(request.form['Slope'])
+            Horizontal_Distance_To_Hydrology = int(request.form['Horizontal_Distance_To_Hydrology'])
+            Vertical_Distance_To_Hydrology = int(request.form['Vertical_Distance_To_Hydrology'])
+            Horizontal_Distance_To_Roadways = int(request.form['Horizontal_Distance_To_Roadways'])
+            Hillshade_9am = int(request.form['Hillshade_9am'])
+            Hillshade_Noon = float(request.form['Hillshade_Noon'])
+            Hillshade_3pm = int(request.form['Hillshade_3pm'])
+            Horizontal_Distance_To_Fire_Points = int(request.form['Horizontal_Distance_To_Fire_Points'])
+            Wilderness_Area1 = int(request.form['Wilderness_Area1'])
+            Wilderness_Area2 = int(request.form['Wilderness_Area2'])
+            Wilderness_Area3 = int(request.form['Wilderness_Area3'])
+            Wilderness_Area4 = int(request.form['Wilderness_Area4'])
+            Soil_Type1 = int(request.form['Soil_Type1'])
+            Soil_Type2 = int(request.form['Soil_Type2'])
+            Soil_Type3 = int(request.form['Soil_Type3'])
+            Soil_Type4 = int(request.form['Soil_Type4'])
+            Soil_Type5 = int(request.form['Soil_Type5'])
+            Soil_Type6 = int(request.form['Soil_Type6'])
+            Soil_Type7 = int(request.form['Soil_Type7'])
+            Soil_Type8 = int(request.form['Soil_Type8'])
+            Soil_Type9 = int(request.form['Soil_Type9'])
+            Soil_Type10 = int(request.form['Soil_Type10'])
+            Soil_Type11 = int(request.form['Soil_Type11'])        
+            Soil_Type12 = int(request.form['Soil_Type12'])
+            Soil_Type13 = int(request.form['Soil_Type13'])
+            Soil_Type14 = int(request.form['Soil_Type14'])
+            Soil_Type15 = int(request.form['Soil_Type15'])
+            Soil_Type16 = int(request.form['Soil_Type16'])
+            Soil_Type17 = int(request.form['Soil_Type17'])
+            Soil_Type18 = int(request.form['Soil_Type18'])
+            Soil_Type19 = int(request.form['Soil_Type19'])
+            Soil_Type20 = int(request.form['Soil_Type20'])
+            Soil_Type21 = int(request.form['Soil_Type21'])
+            Soil_Type22 = int(request.form['Soil_Type22'])
+            Soil_Type23 = int(request.form['Soil_Type23'])
+            Soil_Type24 = int(request.form['Soil_Type24'])
+            Soil_Type25 = int(request.form['Soil_Type25'])
+            Soil_Type26 = int(request.form['Soil_Type26'])
+            Soil_Type27 = int(request.form['Soil_Type27'])
+            Soil_Type28 = int(request.form['Soil_Type28'])                                                
+            Soil_Type29 = int(request.form['Soil_Type29'])
+            Soil_Type30 = int(request.form['Soil_Type30'])
+            Soil_Type31 = int(request.form['Soil_Type31'])
+            Soil_Type32 = int(request.form['Soil_Type32'])
+            Soil_Type33 = int(request.form['Soil_Type33'])
+            Soil_Type34 = int(request.form['Soil_Type34'])
+            Soil_Type35 = int(request.form['Soil_Type35'])
+            Soil_Type36 = int(request.form['Soil_Type36'])
+            Soil_Type37 = int(request.form['Soil_Type37'])
+            Soil_Type38 = int(request.form['Soil_Type38'])
+            Soil_Type39 = int(request.form['Soil_Type39'])
+            Soil_Type40 = int(request.form['Soil_Type40'])                                                
+
+            forestcover_data = ForestCoverData(Elevation = Elevation,
+                                        Aspect = Aspect,
+                                        Slope = Slope,
+                                        Horizontal_Distance_To_Hydrology = Horizontal_Distance_To_Hydrology,
+                                        Vertical_Distance_To_Hydrology = Vertical_Distance_To_Hydrology,
+                                        Horizontal_Distance_To_Roadways = Horizontal_Distance_To_Roadways,
+                                        Hillshade_9am = Hillshade_9am,
+                                        Hillshade_Noon = Hillshade_Noon,
+                                        Hillshade_3pm = Hillshade_3pm,
+                                        Horizontal_Distance_To_Fire_Points = Horizontal_Distance_To_Fire_Points,
+                                        Wilderness_Area1 = Wilderness_Area1,
+                                        Wilderness_Area2 = Wilderness_Area2,
+                                        Wilderness_Area3 = Wilderness_Area3,
+                                        Wilderness_Area4 = Wilderness_Area4,
+                                        Soil_Type1 = Soil_Type1,
+                                        Soil_Type2 = Soil_Type2,
+                                        Soil_Type3 = Soil_Type3,
+                                        Soil_Type4 = Soil_Type4,
+                                        Soil_Type5 = Soil_Type5,
+                                        Soil_Type6 = Soil_Type6,
+                                        Soil_Type7 = Soil_Type7,
+                                        Soil_Type8 = Soil_Type8,
+                                        Soil_Type9 = Soil_Type9,
+                                        Soil_Type10 = Soil_Type10,
+                                        Soil_Type11 = Soil_Type11,
+                                        Soil_Type12 = Soil_Type12,
+                                        Soil_Type13 = Soil_Type13,
+                                        Soil_Type14 = Soil_Type14,
+                                        Soil_Type15 = Soil_Type15,
+                                        Soil_Type16 = Soil_Type16,
+                                        Soil_Type17 = Soil_Type17,
+                                        Soil_Type18 = Soil_Type18,
+                                        Soil_Type19 = Soil_Type19,
+                                        Soil_Type20 = Soil_Type20,
+                                        Soil_Type21 = Soil_Type21,
+                                        Soil_Type22 = Soil_Type22,
+                                        Soil_Type23 = Soil_Type23,
+                                        Soil_Type24 = Soil_Type24,
+                                        Soil_Type25 = Soil_Type25,
+                                        Soil_Type26 = Soil_Type26,
+                                        Soil_Type27 = Soil_Type27,
+                                        Soil_Type28 = Soil_Type28,
+                                        Soil_Type29 = Soil_Type29,
+                                        Soil_Type30 = Soil_Type30,
+                                        Soil_Type31 = Soil_Type31,
+                                        Soil_Type32 = Soil_Type32,
+                                        Soil_Type33 = Soil_Type33,
+                                        Soil_Type34 = Soil_Type34,
+                                        Soil_Type35 = Soil_Type35,
+                                        Soil_Type36 = Soil_Type36,
+                                        Soil_Type37 = Soil_Type37,
+                                        Soil_Type38 = Soil_Type38,
+                                        Soil_Type39 = Soil_Type39,
+                                        Soil_Type40 = Soil_Type40
+                                    )
+            forestcover_df = forestcover_data.get_forest_cover_input_data_frame()
+            forest_cover_predictor = ForestCoverPredictor(model_dir=MODEL_DIR)
+            Cover_Type = forest_cover_predictor.predict(X=forestcover_df)
+            logging.info(Cover_Type)
+            context = {
+                FOREST_COVER_DATA_KEY: forestcover_data.get_forest_cover_data_as_dict(),
+                COVER_TYPE_VALUE_KEY: Cover_Type,
+            }
+            return render_template('predict.html', context=context)
+        return render_template("predict.html", context=context)
+    except Exception as e:
+        return str(e)
 
 
 @app.route('/saved_models', defaults={'req_path': 'saved_models'})
@@ -254,7 +258,7 @@ def saved_models_dir(req_path):
         "parent_folder": os.path.dirname(abs_path),
         "parent_label": abs_path
     }
-    return render_template('saved_models_files.html', result=result)
+    return render_template('saved_model_files.html', result=result)
 
 
 @app.route("/update_model_config", methods=['GET', 'POST'])

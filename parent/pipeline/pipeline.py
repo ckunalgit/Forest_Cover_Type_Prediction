@@ -37,7 +37,7 @@ class Pipeline(Thread):
                 EXPERIMENT_DIR_NAME,
                 EXPERIMENT_FILE_NAME)
             
-            super().__init__(daemon=False, name=Pipeline)
+            super().__init__(daemon=False, name="pipeline")
             self.config = config
         except Exception as e:
             raise ForestException(e,sys) from e
