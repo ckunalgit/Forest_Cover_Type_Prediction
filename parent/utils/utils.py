@@ -1,4 +1,3 @@
-from colorama import Fore
 import yaml
 from parent.exception import ForestException
 import os,sys
