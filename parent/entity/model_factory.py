@@ -2,7 +2,6 @@ from cmath import log
 import importlib
 from pyexpat import model
 
-from colorama import Fore
 import numpy as np
 import yaml
 from parent.exception import ForestException
