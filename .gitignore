@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 forestcover/
+saved_models/
 .Python
 build/
 develop-eggs/
