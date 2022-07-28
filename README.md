@@ -1,6 +1,9 @@
 # Forest_Cover_Type_Prediction
 This model is helpful in noticing the changes occurred due to heavy floods or any other calamities which affected the forest land
 
+# App link
+https://forest-cover-type-classifier.herokuapp.com/
+
 # Creating virtual env for project
 conda create -p venv_ffcp python=3.7 -y
 
