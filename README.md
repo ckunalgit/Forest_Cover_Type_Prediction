@@ -15,5 +15,5 @@ git rm --cached -r venv_ffcp
 
 # Docker info for Heroku deployment
 HEROKU_EMAIL = ckunalsinbox@gmail.com
-HEROKU_API_KEY = e2226452-98b0-4c8c-b08e-961a78eda4cb
+HEROKU_API_KEY = 
 HEROKU_APP_NAME = forest-cover-type-classifier
